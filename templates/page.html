@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{{ page|safe }}
+	<a href="{{ url_for('edit_page', page_title=title) }}">Edit This Page</a>
+{% endblock %}

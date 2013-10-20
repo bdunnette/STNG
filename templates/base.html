@@ -5,6 +5,8 @@
 <title>{% block title %}STNG{% endblock title %}</title>
 {% block style %}
   <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/font-awesome.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/summernote.css') }}" rel="stylesheet">
 {% endblock style %}
 
 {% block head_js %}
@@ -14,5 +16,8 @@
 </head>
 <body>
 {% block content %}{% endblock content %}
+
+<!-- Block to add specific JS for templates -->
+{% block inline_js %}{% endblock inline_js %}
 </body>
 </html>

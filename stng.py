@@ -6,13 +6,12 @@ app = Flask(__name__)
 app.config.from_object('stng_config')
 api = Api(app)
 
-PAGES = {}
-
 wiki_repo = Repo(app.config['REPO_PATH'])
 print wiki_repo
 tree = wiki_repo.heads.master.commit.tree
-for blob in tree.blobs:
-    print blob, blob.mime_type, blob.data_stream.read()
+
+PAGES = {blob.path.rstrip('.html'):blob.data_stream.read() for blob in tree.blobs if 'text' in blob.mime_type}
+print PAGES
 
 def abort_if_page_doesnt_exist(page_id):
     if page_id not in PAGES:
@@ -62,11 +61,26 @@ api.add_resource(Page, '/pages/<string:page_id>')
 
 # Volunteer list
 @app.route("/", methods=['GET'])
-def volunteers_page():
+def list_pages():
     pages = PAGES
 
     return render_template('index.html',
                            pages=pages)
+    
+@app.route("/<page_title>", methods=['GET'])
+def show_page(page_title):
+    page = PAGES[page_title]
+
+    return render_template('page.html',
+                           page=page,
+                           title=page_title)
+
+@app.route("/<page_title>/edit", methods=['GET'])
+def edit_page(page_title):
+    page = PAGES[page_title]
+
+    return render_template('edit.html',
+                           page=page)
 
 if __name__ == '__main__':
     app.run(debug=True)

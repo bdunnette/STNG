@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div id='page_content'>{{ page|safe }}</div>
+{% endblock %}
+
+{% block inline_js %}
+	<script src="{{ url_for('static', filename='js/summernote.js') }}"></script>
+	<script>
+	$(document).ready(function() {
+		  $('#page_content').summernote();
+	});
+	</script>
+{% endblock %}

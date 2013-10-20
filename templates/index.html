@@ -2,8 +2,8 @@
 
 {% block content %}
 	<ul>
-	{% for page_id in pages %}
-		<li>{{ pages[page_id] }}</li>
+	{% for title in pages %}
+		<li><a href="{{ url_for('show_page', page_title=title) }}">{{ pages[title] }}</a></li>
 	{% endfor %}
 	</ul>
 {% endblock %}
