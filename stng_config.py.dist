@@ -4,4 +4,5 @@ ADMINS = ['me@mydomain.com']
 SMTP_HOST = 'smtp.mydomain.com'
 SMTP_USER = 'me@mydomain.com'
 SMTP_PASS = 'password'
-SECRET_KEY = 'DwZUYLeVdZo257wngLdCALRvwfuriBSOj4HfJh69htnEax2gILuUKOhfJ07NWvF'
+SECRET_KEY = 'YourKeyGoesHere'
+REPO_PATH = '/Users/bdunnette/stng-wiki/'

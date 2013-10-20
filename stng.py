@@ -1,11 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template, request, url_for, redirect, Response
 from flask.ext.restful import reqparse, abort, Api, Resource
+from git import *
 
 app = Flask(__name__)
 app.config.from_object('stng_config')
 api = Api(app)
 
 PAGES = {}
+
+wiki_repo = Repo(app.config['REPO_PATH'])
+print wiki_repo
+tree = wiki_repo.heads.master.commit.tree
+for blob in tree.blobs:
+    print blob, blob.mime_type, blob.data_stream.read()
 
 def abort_if_page_doesnt_exist(page_id):
     if page_id not in PAGES:
@@ -53,6 +60,13 @@ class PageList(Resource):
 api.add_resource(PageList, '/pages')
 api.add_resource(Page, '/pages/<string:page_id>')
 
+# Volunteer list
+@app.route("/", methods=['GET'])
+def volunteers_page():
+    pages = PAGES
+
+    return render_template('index.html',
+                           pages=pages)
 
 if __name__ == '__main__':
     app.run(debug=True)

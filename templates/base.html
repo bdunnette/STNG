@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}STNG{% endblock title %}</title>
+{% block style %}
+  <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+{% endblock style %}
+
+{% block head_js %}
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+{% endblock head_js %}
+</head>
+<body>
+{% block content %}{% endblock content %}
+</body>
+</html>
